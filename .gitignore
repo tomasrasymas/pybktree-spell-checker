@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Idea and mac
+.DS_Store
+.idea/*
