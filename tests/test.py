@@ -1,10 +1,11 @@
 import unittest
 from pybktreespellchecker import levenshtein_distance
+from pybktreespellchecker import BKTree
 
 
 class TestFunctions(unittest.TestCase):
     def setUp(self):
-        pass
+        self.bktree = BKTree(words=['zero', 'one', 'two', 'tree', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'])
 
     def test_levenshtein_distance_function(self):
         self.assertEqual(levenshtein_distance('kitten', 'sitting'), 3)
@@ -37,6 +38,20 @@ class TestFunctions(unittest.TestCase):
                                                                 [4, 4, 4, 4, 4],
                                                                 [5, 5, 5, 5, 5],
                                                                 [6, 6, 6, 6, 6]])
+
+    def test_bktree_functions(self):
+        self.bktree.add_word('car')
+
+        result = self.bktree.search('car', 0)
+
+        self.assertEqual(result[0][0], 0)
+        self.assertEqual(result[0][1].word, 'car')
+
+        result = self.bktree.search('eiggt', 4)
+        self.assertEqual(len(result), 4)
+
+        self.assertEqual(result[0][0], 1)
+        self.assertEqual(result[0][1].word, 'eight')
 
 
 if __name__ == '__main__':
